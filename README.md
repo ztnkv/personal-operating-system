@@ -73,6 +73,33 @@ You don't need to "register" or "import" the skills — Claude Code picks them u
 
 ---
 
+## Quick start
+
+The fastest way to bring a freshly cloned, still-empty repo to life — **run `/grill-me` and let the agent interview you**.
+
+```
+/grill-me
+```
+
+The skill will:
+- read the (empty) memory map and notice it has nothing to go on,
+- start asking pointed, open questions one at a time — about your patterns, values, work, relationships, blind spots,
+- record facts to `memory/` as the conversation goes,
+- end with an automatic `memory-retro` pass that cross-checks links and contradictions,
+- commit and push everything.
+
+A single 20–30 minute grill session usually seeds the repo with 10–25 atomic memory entries — enough that the next conversation starts feeling like the agent actually knows you.
+
+You can run `/grill-me` again any time you feel the agent's picture of you has gaps. Each subsequent session digs into the *current* blind spots, not whatever it asked about last time.
+
+Other natural ways to get started instead of (or in addition to) `/grill-me`:
+
+- **Just talk.** Bring any topic you'd normally journal about. The agent will load memory (empty at first), have the conversation, then proactively propose a `memory-retro` to record what surfaced.
+- **Bulk-import existing notes.** If you have an old journal, chat-log export, or therapy session transcript, point the agent at the file and ask it to import — `memory-retro` runs in autonomous **bootstrap mode** and seeds memory in one pass, marking uncertain entries `confidence: low` for later review.
+- **Start a daily rhythm.** Run `/new-day` each morning. Over 1–2 weeks the day cards alone will surface enough patterns for the defensive cross-check to start producing useful signals.
+
+---
+
 ## How it works
 
 Three layers:
