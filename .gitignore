@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Env
+.env
+.env.local
+
+# Claude Code housekeeping
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
+.claude/worktrees/
