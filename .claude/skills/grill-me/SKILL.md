@@ -30,6 +30,49 @@ Good: *"Do you usually initiate intimacy in your relationship, or respond to you
 
 ## Algorithm
 
+### Step 0. Cold-start checks (only on a fresh / near-empty repo)
+
+Before anything else, look at `memory/`. If it has **no entries** (or only the templated `index.md` / `tags.md` with no actual entry files), this is a cold start. Two extra things happen up front:
+
+#### 0a. Confirm the working language
+
+If memory is empty AND the user has not yet stated their language in this session — **ask explicitly**, one short question, before any interview question:
+
+> Before we start — what language should we work in? I'll write every memory entry, list item, and day card in that language from now on.
+
+Wait for the answer. As soon as the user replies:
+
+1. Create a memory entry immediately, via Write (not via memory-retro — this is the bootstrap step, the user already confirmed by answering):
+   - filename: `<unix_timestamp>-working-language.md`
+   - frontmatter: `type: preference`, `confidence: high`, `status: active`, tags include a language tag (`#language` plus a top-level category like `#meta` or whichever convention the user introduces).
+   - body: a one-liner like *"Working language: <language>. All memory entries, lists, and day cards are written in <language>."*
+2. Add the entry to `memory/index.md`.
+3. `git add memory/ && git commit -m "memory(grill-me): set working language" && git push`.
+4. **Switch the conversation to that language immediately** — the rest of the session, including all subsequent grill questions and the wrap-up, runs in the user's language. Match it consistently.
+
+If the user already wrote in a clearly identifiable natural language at the very start of the session (e.g. their first message was *"прожарь меня"*) — **skip the question, infer the language from that message**, but still create the same `working-language` memory entry so future sessions don't have to re-detect.
+
+#### 0b. Cold-start interview arc — start from identity, not from patterns
+
+The rest of this skill (Steps 1–3 below) is calibrated for a memory that already has content. On a cold start there is nothing to map density against — and jumping straight to pattern-questions (*"how do you spend time when you have no obligations"*) feels alien because the agent doesn't yet know who is being asked.
+
+For a cold start, override the "pick the emptiest zone" logic with a **fixed identity-first arc** of roughly 6–8 questions before drifting into the open pattern-questions of Step 4. The order matters — each question grounds the next.
+
+1. **Name and basics** — *"Let's start simple. What's your name, how old are you, where do you live right now?"*
+2. **Current life shape** — *"What does your life look like at a high level right now — work, family setup, where your weeks go?"*
+3. **Current main occupation / role** — *"What's the main thing you're doing with your professional time these days?"*
+4. **Closest people** — *"Who are the closest people in your life right now? You can be brief — names and how they relate to you."*
+5. **Biography anchor** — *"What's a one-paragraph version of how you got to where you are now? Skip details, just the spine."*
+6. **What you want this system to know about you** — *"What's the kind of thing about you that, if I knew it, would make every future conversation better? It can be anything — a value, a constraint, a recurring thought."*
+7. **One sharp pattern-question** — pick one open question from the gallery in Step 4 that feels natural after the previous answers. This is the bridge from identity to patterns.
+8. **Then transition into the regular flow** — from here on, follow Steps 1–4 normally, building a density map from the few entries you just created.
+
+Each of these questions follows the same record-on-the-fly loop documented in Step 4: acknowledge → write to memory → commit/push → next question.
+
+These cold-start entries are typically `type: fact` (name, age, location, role, closest people), `type: event` (biography spine), or `type: preference` / `type: belief` for the "what to know about you" answer. `confidence: high` — the user is stating identity facts directly.
+
+After the identity arc is done, memory has 6–10 anchor entries, the tag dictionary has its first L1 categories, and the rest of the skill (Steps 1–5) now has real material to work with.
+
 ### Step 1. Read the memory map deeply
 
 This is not a formality — how good the rest of the conversation is depends on the depth of this step. The classic defect "read the index, jumped straight into asking about friends" comes from here.
