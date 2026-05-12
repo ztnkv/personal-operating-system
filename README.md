@@ -81,6 +81,8 @@ The fastest way to bring a freshly cloned, still-empty repo to life — **run `/
 /grill-me
 ```
 
+**Tip — set your language on the first run.** The framework files are in English, but your memory entries should be in whatever language you actually speak with the agent. On the very first conversation, say one short line up front — *"let's talk in Spanish"* / *"общаемся по-русски"* / *"falamos em português"* — before invoking `/grill-me`. The agent will then write every memory entry, list item, and day card in that language. Once 1–2 entries are in memory, the convention is locked in: future sessions auto-detect the language from the existing files and won't drift back to English.
+
 The skill will:
 - read the (empty) memory map and notice it has nothing to go on,
 - start asking pointed, open questions one at a time — about your patterns, values, work, relationships, blind spots,

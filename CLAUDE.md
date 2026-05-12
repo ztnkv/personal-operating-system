@@ -53,11 +53,27 @@ After any initiative reaches a logical close (a list was updated, a task was wra
 
 The framework files in this repo (skills, `CLAUDE.md`, `README.md`) are in **English** so the system is portable across users worldwide.
 
-**The artifacts the user creates** — memory entries, list items, day cards, tag descriptions — are written in **the user's own language** (whatever language they are speaking with the agent in). If the user speaks Spanish, the memory entries are in Spanish. If Russian — in Russian. If English — in English. **Match the user's language consistently** so they do not see the agent suddenly produce English notes about their own life in the middle of a Spanish-language conversation.
+**The artifacts the user creates** — memory entries, list items, day cards, tag descriptions — are written in **the user's own language** (whatever language they are speaking with the agent in). If the user speaks Spanish, the memory entries are in Spanish. If Russian — in Russian. If English — in English.
 
-Only the **YAML frontmatter keys** (`title`, `tags`, `type`, `confidence`, `status`, `created`, `updated`) and the **controlled values for `type` and `status`** (`fact`, `belief`, `preference`, `event`, `goal`, `constraint`; `active`, `deprecated`) stay in English — they are part of the schema.
+### Detecting the user's language
 
-Tag tokens themselves may be in the user's language too. Whatever the convention, keep it consistent.
+At the **start of every conversation**, before producing any response, determine the user's working language using this order:
+
+1. **Existing memory artifacts win.** If `memory/` already has entries, look at the body language of recent entries (`memory/index.md` hooks are usually enough — open 1–2 entry bodies if the index is ambiguous). Whatever language those are in is the working language. **Do not ask the user.** Do not default to English just because the skill files are in English.
+2. **If memory is empty**, fall back to the language of the user's first message in this session. If their first message is *"привет"* — speak Russian. *"hola"* — Spanish. *"hey"* — English.
+3. **If both signals conflict** (memory is in Spanish but the user wrote in English this turn) — match the user's current message, but at the end of the turn ask a short clarifying question: *"You wrote in English but your notes are in Spanish — switch to English for this session and all new entries?"* Don't silently start writing English entries into a Spanish memory.
+4. **Only ask the user about language** if memory is empty AND the first message is genuinely ambiguous (e.g. a code snippet with no natural-language text).
+
+Once the language is set, **match it consistently across the entire conversation** — including memory entries, list items, day cards, commit-message-free chat replies, and any clarifying questions. The user should never see the agent suddenly switch to English mid-Spanish-conversation just because a skill file used English examples.
+
+### What stays in English regardless
+
+- **YAML frontmatter keys**: `title`, `tags`, `type`, `confidence`, `status`, `created`, `updated`.
+- **Controlled values** for `type` (`fact`, `belief`, `preference`, `event`, `goal`, `constraint`) and `status` (`active`, `deprecated`) — they are part of the schema.
+
+### Tag tokens
+
+Tag tokens themselves should follow the same language as memory bodies. If the user writes in Russian, tags should be Russian too (`психология`, `работа`). If in Spanish — Spanish. Pick the convention on the first entry and keep it consistent across `tags.md`.
 
 ## Where to take this further
 
