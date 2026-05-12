@@ -36,21 +36,30 @@ Before anything else, look at `memory/`. If it has **no entries** (or only the t
 
 #### 0a. Confirm the working language
 
-If memory is empty AND the user has not yet stated their language in this session — **ask explicitly**, one short question, before any interview question:
+If memory is empty, **always ask the language question explicitly, no exceptions.** This is the very first thing that happens — before any interview question, before reading anything else, before any other tool call beyond the empty-memory check itself.
 
 > Before we start — what language should we work in? I'll write every memory entry, list item, and day card in that language from now on.
+
+**No inference shortcuts on cold start.** Do not infer the language from:
+- the user's invocation phrase (`/grill-me`, *"прожарь меня"*, *"grill me"* — these are commands or skill aliases, not a language commitment for the entire memory archive);
+- the Claude Code global language setting / user's CLI profile;
+- the system locale;
+- any user-level CLAUDE.md or memory files outside this repo;
+- prior sessions in this same repo (if memory is empty, there are no prior sessions — by definition).
+
+The language convention of the **memory archive** is a per-repo decision the user makes once, and it is too consequential to be guessed. One short question costs nothing — ask it.
 
 Wait for the answer. As soon as the user replies:
 
 1. Create a memory entry immediately, via Write (not via memory-retro — this is the bootstrap step, the user already confirmed by answering):
    - filename: `<unix_timestamp>-working-language.md`
    - frontmatter: `type: preference`, `confidence: high`, `status: active`, tags include a language tag (`#language` plus a top-level category like `#meta` or whichever convention the user introduces).
-   - body: a one-liner like *"Working language: <language>. All memory entries, lists, and day cards are written in <language>."*
+   - body: a one-liner in the chosen language, like *"Working language: <language>. All memory entries, lists, and day cards are written in <language>."*
 2. Add the entry to `memory/index.md`.
 3. `git add memory/ && git commit -m "memory(grill-me): set working language" && git push`.
 4. **Switch the conversation to that language immediately** — the rest of the session, including all subsequent grill questions and the wrap-up, runs in the user's language. Match it consistently.
 
-If the user already wrote in a clearly identifiable natural language at the very start of the session (e.g. their first message was *"прожарь меня"*) — **skip the question, infer the language from that message**, but still create the same `working-language` memory entry so future sessions don't have to re-detect.
+The **only** case where the language question is skipped on cold start: the user themselves, in the same message that invoked the skill, explicitly named a language — e.g. *"/grill-me, давай по-русски"* or *"grill me in Spanish please"*. A bare invocation does not count.
 
 #### 0b. Cold-start interview arc — start from identity, not from patterns
 
