@@ -3,6 +3,8 @@
 A portable, file-based **personal-memory system** for use with an AI agent (Claude Code or compatible).
 The goal is simple: give your agent a stable, evolving model of *you* — your habits, beliefs, goals, lists, daily rhythms — that you own as plain Markdown files in a git repository.
 
+Use it as a daily operating layer (tasks, check-ins, schedule) or as a self-therapy tool — talk through recurring patterns, unresolved dynamics, things you keep circling back to. The agent holds your full history, surfaces contradictions you've already named, and builds a structured map of your own psychology over time.
+
 Everything lives in your repo. Nothing is locked behind a vendor's profile. You can push it to GitHub, sync it across machines, edit any entry by hand, and the agent will pick up the changes the next time it loads memory.
 
 ---
@@ -118,6 +120,8 @@ The agent reads `memory/index.md` and `memory/tags.md` at the start of any non-t
 - During the day: you throw items into lists — *"add a task — call the dentist"*, *"add the movie Anatomy of a Fall"*, *"mark Y as done"*. Each operation is a small atomic commit.
 - Evening: you have a long conversation about a decision, a relationship, a thought you keep returning to. New facts about you emerge. The agent proactively offers a `memory-retro`, shows the diff, you confirm, and the entries land in `memory/`.
 - Once in a while: you say *"grill me"*. The agent runs a 7–15 question interview into your current blind spots, records facts as it goes, and finishes with a `memory-retro` cross-check.
+
+**Beyond daily rhythm — self-therapy mode.** The system doubles as a lightweight self-psychotherapy tool. When something is nagging at you — a recurring pattern, an unresolved relationship dynamic, a childhood memory that keeps surfacing — just talk it out with the agent the way you would in a journal or a therapy session. The agent holds your full history, notices contradictions you've already named, and can ask the kind of follow-up questions a good therapist would. Unlike a journal, the insights don't get buried: they land in memory as typed, tagged, confidence-rated entries that come back up the next time the topic is relevant. Over months, you end up with a structured picture of your own psychology — not as a diagnostic label, but as a living map you can walk back through, update, and argue with.
 
 ---
 
